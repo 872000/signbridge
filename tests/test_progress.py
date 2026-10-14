@@ -28,6 +28,14 @@ def test_unattempted_letters_are_learning(db):
     assert stats["Q"]["mastery"] == "Learning"
 
 
+def test_record_attempt_normalizes_lowercase_letters(db):
+    db.record_attempt("k", True)
+    db.record_attempt("K", True)
+    stats = db.letter_stats()["K"]
+    assert stats["attempts"] == 2
+    assert stats["correct"] == 2
+
+
 def test_mastery_level_thresholds():
     assert mastery_level(0, 0.0) == "Learning"
     assert mastery_level(4, 1.0) == "Learning"      # too few attempts
