@@ -2,7 +2,7 @@
 
 ![Python](https://img.shields.io/badge/python-3.10%2B-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
-![Tests](https://img.shields.io/badge/tests-21%20passing-brightgreen)
+![Tests](https://img.shields.io/badge/tests-23%20passing-brightgreen)
 ![Offline](https://img.shields.io/badge/offline-no%20API%20keys-orange)
 
 ![SignBridge hero](assets/hero.png)

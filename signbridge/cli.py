@@ -11,6 +11,14 @@ from .quiz import run_quiz
 from .recognize import run_recognize
 
 
+def positive_int(value: str) -> int:
+    """argparse type: accept only integers >= 1 (e.g. quiz --rounds)."""
+    number = int(value)
+    if number < 1:
+        raise argparse.ArgumentTypeError(f"must be at least 1, got {number}")
+    return number
+
+
 def build_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(
         prog="signbridge",
@@ -22,7 +30,7 @@ def build_parser() -> argparse.ArgumentParser:
     learn.add_argument("letter", nargs="?", help="Show a single letter, e.g. 'learn K'.")
 
     quiz = sub.add_parser("quiz", help="Quiz yourself: name the letter from its handshape.")
-    quiz.add_argument("--rounds", type=int, default=10, help="Number of quiz rounds (default: 10).")
+    quiz.add_argument("--rounds", type=positive_int, default=10, help="Number of quiz rounds (default: 10, minimum: 1).")
     quiz.add_argument("--seed", type=int, default=None, help="Random seed for reproducible quizzes.")
     quiz.add_argument("--db", default=None, help="Progress database path.")
 

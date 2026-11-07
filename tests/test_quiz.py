@@ -40,3 +40,17 @@ def test_pick_round_letters_is_reproducible_with_seed():
     assert [e["letter"] for e in a] == [e["letter"] for e in b]
     assert len(a) == 20
     assert all(e["letter"] in "ABCDEFGHIJKLMNOPQRSTUVWXYZ" for e in a)
+
+
+def test_quiz_rounds_must_be_at_least_one():
+    import pytest
+
+    from signbridge.cli import build_parser
+
+    parser = build_parser()
+    assert parser.parse_args(["quiz", "--rounds", "5"]).rounds == 5
+    # Zero or negative rounds would run an empty, pointless quiz.
+    with pytest.raises(SystemExit):
+        parser.parse_args(["quiz", "--rounds", "0"])
+    with pytest.raises(SystemExit):
+        parser.parse_args(["quiz", "--rounds", "-3"])
