@@ -80,6 +80,8 @@ def generate_silhouette(letter: str, digits: list[str]) -> np.ndarray:
     Returns a single-channel uint8 image (white shape on black background).
     """
     letter = letter.upper()
+    if letter not in SHAPE_PARAMS:
+        raise ValueError(f"Unknown letter: {letter!r} (supported: A-Z)")
     rng = np.random.default_rng(ord(letter))  # deterministic per letter
     params = SHAPE_PARAMS[letter]
     mod = params["mod"]

@@ -1,6 +1,7 @@
 """Tests for the prototype contour recognizer."""
 
 import numpy as np
+import pytest
 
 from signbridge.dataset import load_alphabet
 from signbridge.recognizer import (
@@ -35,6 +36,11 @@ def test_feature_extraction_handles_blank_image():
     feats = extract_features(np.zeros((200, 200), dtype=np.uint8))
     assert feats.shape == (11,)
     assert np.all(feats == 0)
+
+
+def test_generate_silhouette_rejects_unknown_letter():
+    with pytest.raises(ValueError, match="Unknown letter: '1'"):
+        generate_silhouette("1", [])
 
 
 def test_templates_match_themselves():
